@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "划词翻译小能手",
+    "version": "1.0.0",
+    "description": "选中文字后弹出翻译卡片",
+    "permissions":[],
+    "content_scripts":[
+        {
+            "matches":["<all_urls>"],
+            "js":["content.js"],
+            "css":["style.css"]
+        }
+    ]
+}
