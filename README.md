@@ -64,3 +64,10 @@ if (fresh.text) {
 }
 latestSelectedText 不会被更新为空字符串
 它还保留着上一次选中的旧文本！
+
+4.API额度用光
+
+解决：写自己的翻译后端
+
+5.在 content.js 里直接请求本地后端
+内容脚本在很多站点会遇到跨域/CORS/页面安全策略问题，导致 fetch 失败。

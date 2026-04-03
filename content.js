@@ -12,11 +12,15 @@ function isAutoOpenSuppressed() {
 
 async function translateText(text) {
     try {
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh-CN`;
-        const res = await fetch(url);
-        const data = await res.json();
-        console.log("翻译接口返回：", data);
-        return data.responseData?.translatedText || "翻译失败";
+        const result = await chrome.runtime.sendMessage({
+            type: "TRANSLATE_TEXT",
+            text
+        });
+        if (!result?.ok) {
+            console.error("翻译接口失败:", result?.error);
+            return "翻译出错";
+        }
+        return result.translatedText || "翻译失败";
     } catch (err) {
         console.error("翻译出错:", err);
         return "翻译出错";
@@ -42,7 +46,7 @@ function createPopup(text, x, y) {
       </div>
       <div class="translate-body">
         <p><strong>原文：</strong>${text}</p>
-        <p><strong>翻译：</strong><span class="result">翻译中...</span></p>
+        <p><strong>翻译：</strong><span class="result">thinking...</span></p>
       </div>
     `;
     //将弹窗添加到页面
